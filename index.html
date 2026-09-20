@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wèn — Chinese Flashcards</title>
+<meta name="description" content="Wèn is an iPhone app for learning Chinese characters: HSK 1–6 vocabulary, stroke order animations, decks you build yourself and printable practice sheets. No account, no tracking.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wèn: Chinese Flashcards">
+<meta property="og:description" content="HSK 1 - 6 vocabulary, stroke order animations, decks you build yourself and printable practice sheets. No account, no tracking.">
+<meta property="og:image" content="icon.png">
+
+<link rel="icon" href="icon.png">
+
+<style>
+  /*
+    System fonts only — deliberately.
+    Loading a webfont from a third party would mean every visitor's browser
+    contacting that server, which is hard to square with the page below.
+  */
+  :root {
+    --paper:   #FCFBF8;
+    --surface: #FFFFFF;
+    --ink:     #1B1916;
+    --muted:   #5F594F;
+    --faint:   #8B847A;
+    --rule:    #E5E0D6;
+    --accent:  #A32E26;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:   #141312;
+      --surface: #1C1A18;
+      --ink:     #EFEBE4;
+      --muted:   #A29B90;
+      --faint:   #7C7569;
+      --rule:    #2E2B26;
+      --accent:  #E0685E;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding-inline: 22px;
+    padding-block: 0 80px;
+  }
+
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---------- header ---------- */
+
+  header {
+    padding-block: 64px 40px;
+    text-align: center;
+  }
+
+  .icon {
+    width: 108px;
+    height: 108px;
+    border-radius: 24px;
+    display: block;
+    margin: 0 auto 26px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.10);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 7vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin: 0 0 10px;
+  }
+
+  .tagline {
+    color: var(--muted);
+    font-size: 17px;
+    margin: 0 0 8px;
+  }
+
+  .meaning {
+    color: var(--faint);
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .cta {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 11px 22px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 9px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .cta:hover { filter: brightness(1.08); }
+
+  /* ---------- sections ---------- */
+
+  section { padding-block: 34px; border-top: 1px solid var(--rule); }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px;
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 26px 0 8px;
+  }
+
+  p { margin: 0 0 15px; }
+  p:last-child { margin-bottom: 0; }
+
+  .lede { font-size: 17px; }
+
+  ul { margin: 0 0 15px; padding-left: 20px; }
+  li { margin-bottom: 7px; }
+  li:last-child { margin-bottom: 0; }
+
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+  .features li {
+    padding: 13px 0;
+    border-bottom: 1px solid var(--rule);
+    margin: 0;
+  }
+  .features li:last-child { border-bottom: 0; }
+  .features strong { font-weight: 600; display: block; }
+  .features span { color: var(--muted); font-size: 14.5px; }
+
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 22px;
+  }
+  .callout p { margin: 0; }
+
+  .updated {
+    color: var(--faint);
+    font-size: 13.5px;
+    margin: 0 0 22px;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-block: 28px;
+    color: var(--faint);
+    font-size: 13.5px;
+  }
+  footer p { margin: 0 0 8px; }
+  footer p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <img class="icon" src="icon.png" alt="Wèn app icon" onerror="this.style.display='none'">
+    <h1>Wèn</h1>
+    <p class="tagline">Chinese flashcards for iPhone: hanzi, stroke order, HSK 1–6.</p>
+    <p class="meaning">Wèn (问) means “to ask”.</p>
+    <a class="cta" href="#">Download on the App Store</a>
+  </header>
+
+  <section id="about">
+    <h2>About the app</h2>
+    <p class="lede">Wèn helps you learn Chinese characters by seeing them written, hearing them spoken, and practising the ones you choose rather than the ones an algorithm picks for you.</p>
+    <p>It covers the full HSK (3.0) 1 - 6 vocabulary. Every character can be watched drawn stroke by stroke at a speed you set, and every word has audio. You build your own decks from any characters you like, study them as flashcards, and print practice sheets when you want to write by hand.</p>
+    <p>There is no account, no sign-up, and no internet connection required. Everything the app knows stays on your device.</p>
+  </section>
+
+  <section id="features">
+    <h2>What it does</h2>
+    <ul class="features">
+      <li>
+        <strong>Browse HSK (3.0) 1 to 6</strong>
+        <span>Search by hanzi, pinyin or English meaning, and filter by level.</span>
+      </li>
+      <li>
+        <strong>Stroke order animations</strong>
+        <span>Every character drawn in order, at slow, normal or fast speed.</span>
+      </li>
+      <li>
+        <strong>Audio for every word</strong>
+        <span>Native pronunciation, with adjustable playback speed.</span>
+      </li>
+      <li>
+        <strong>Decks you build yourself</strong>
+        <span>Pick any characters, duplicate an existing deck, or merge several into one.</span>
+      </li>
+      <li>
+        <strong>Flashcard games</strong>
+        <span>Choose what each card reveals, and play by rounds, by lives or against a timer. Two people can share one phone.</span>
+      </li>
+      <li>
+        <strong>Printable practice sheets</strong>
+        <span>PDFs with stroke order phases, tracing guides and writing grids, in A4, A5 or Letter.</span>
+      </li>
+      <li>
+        <strong>Shareable decks</strong>
+        <span>Send a deck as a file by AirDrop, Messages or email. No account needed at either end.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section id="pricing">
+    <h2>Free and paid</h2>
+    <p>HSK levels 1 and 2 are free and complete; every character, every animation, the audio, the games, and up to three decks of your own. It is not a trial and it does not expire.</p>
+    <p>A single one-time purchase, <strong>Full Deck</strong>, unlocks HSK 3 through 6, unlimited decks, deck sharing, two-player mode and printable practice sheets. There is no subscription.</p>
+  </section>
+
+  <section id="privacy">
+    <h2>Privacy policy</h2>
+    <p class="updated">Last updated 20 September 2026</p>
+
+    <div class="callout">
+      <p><strong>Wèn does not collect, transmit or share any information about you.</strong> There are no analytics, no advertising, no trackers, no third-party SDKs and no servers belonging to this app. Nothing you do in Wèn is sent anywhere.</p>
+    </div>
+
+    <h3>What the app stores</h3>
+    <p>Wèn saves the decks you create, the settings you choose and the display name you optionally enter. All of it is written to your device's local storage and never leaves it. Deleting the app deletes all of it permanently.</p>
+
+    <h3>What leaves your device</h3>
+    <p>Nothing, unless you deliberately send it. Two features can produce a file:</p>
+    <ul>
+      <li><strong>Sharing a deck.</strong> The app writes a deck file and hands it to the iOS share sheet. Where it goes from there is entirely your choice, and the developer neither sees nor receives a copy.</li>
+      <li><strong>Practice sheets.</strong> PDFs are generated on your device. They are yours to print, save or send.</li>
+    </ul>
+    <p>If you type a display name, it is written into decks you share so the recipient can see who made them. Leave it blank and nothing is written.</p>
+
+    <h3>Purchases</h3>
+    <p>The Full Deck purchase is processed entirely by Apple through the App Store. Apple's own privacy policy governs that transaction. The developer receives no payment details, no personal information and no identifier that could be linked to you; only aggregate sales figures from Apple.</p>
+
+    <h3>Contact</h3>
+    <p>If you email about a bug or a suggestion, that email is in the developer's inbox for as long as it is useful, and is used only to reply to you. It is never added to a mailing list or shared.</p>
+
+    <h3>Children</h3>
+    <p>Because Wèn collects no information at all, it collects none from children. The app contains no advertising, no third-party content and no way to communicate with strangers.</p>
+
+    <h3>Changes to this policy</h3>
+    <p>If this policy ever changes, the updated version will be posted on this page with a new date. Any change that affected how data is handled would also require an app update, described in its release notes.</p>
+
+    <h3>Questions</h3>
+    <p>Write to <a href="mailto:dbrancam@gmail.com">dbrancam@gmail.com</a>.</p>
+  </section>
+
+  <section id="support">
+    <h2>Support</h2>
+    <p>For bugs, feature requests, translation corrections or anything else, email <a href="mailto:dbrancam@gmail.com">dbrancam@gmail.com</a>. Please include your iOS version and device model if you are reporting a problem.</p>
+  </section>
+
+  <footer>
+    <p>© 2026 David BC. Wèn is not affiliated with Hanban, the HSK, or Apple Inc.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
